@@ -3,16 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslationService } from './services/translation.service';
+import { LanguageComponent } from './components/language/language.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LanguageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    //Import for HttpClientModule -> For API calls
+    HttpClientModule,
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    HttpClient,
+    TranslationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
