@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscriber } from 'rxjs'
 import { language } from 'src/app/models/language'
 import { TranslationService } from 'src/app/services/translation.service'
@@ -11,6 +11,8 @@ import { TranslationService } from 'src/app/services/translation.service'
 export class LanguageComponent implements OnInit {
   Language: any = [] //Parsed and sorted languages obtained from parseLanguages()
   LanguagePair: any = [] //Language pair obtained from loadLanguages()
+  @Output() optionEmitter = new EventEmitter<string>();
+  //GET SELECTER AND PUT INTO EMIT()
 
   constructor(private restApi: TranslationService) {}
   ngOnInit(): void {
@@ -36,5 +38,9 @@ export class LanguageComponent implements OnInit {
         this.Language.push(temp[1]) //Push it inside of Language array
     }
     this.Language.sort((a: string, b: string) => a.localeCompare(b)) //We sort the Language array alphabetically here
+  }
+
+  PostData() {
+    this.optionEmitter.emit()
   }
 }

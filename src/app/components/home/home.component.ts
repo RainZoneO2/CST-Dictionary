@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LanguageComponent } from '../language/language.component';
 
 @Component({
@@ -7,6 +7,10 @@ import { LanguageComponent } from '../language/language.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  enteredText="Example";
+  fromLang!: string;
+  toLang!: string;
 
   constructor() { }
   ngOnInit(): void {

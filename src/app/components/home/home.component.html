@@ -1,8 +1,50 @@
-<div class="container">
-    <p>Home</p>
-    <app-language id="fromLang"></app-language>
+<section class="hero is-primary is-bold">
+    <div class="hero-head content">
+        <span class="title is-centered">
+            Dictionary-translation service
+        </span>
+
+    </div>
+    <div class="hero-body box">
+        <div class="panel columns is-mobile is-centered">
+            <div class="column">
+                <app-language id="fromLang" (optionEmitter)="fromLang"></app-language>
+            </div>
+            <div class="column">
+                <input class="input is-primary" 
+                placeholder="Enter a word" 
+                type="text" id="entry"
+                [(ngModel)]="enteredText">
+                <app-dictionary 
+                [enteredText]="enteredText"
+                [fromLang]="fromLang"
+                [toLang]="toLang"></app-dictionary>
+            </div>
+            <div class="column">
+                <app-language id="toLang" (optionEmitter)="toLang"></app-language>
+            </div>
+        </div>
+        <div class="column">
+            <div class="tile is-ancestor">
+                <section class="tile is-vertical">
+                    <article class="tile is-child notification is-primary">
+                        <p class="title">Definition of</p>
+                        <p class="box title has-text-black"> {{ enteredText }} </p>
+                        <p class="subtitle">Top tile</p>
+                      </article>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <span>
+            Made by <strong>Alghaith Ahmad</strong> - S8912J
+        </span>
+    </div>
     
-    <app-language id="toLang"></app-language>
-</div>
+</footer>
 
 

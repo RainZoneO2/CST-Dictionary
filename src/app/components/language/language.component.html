@@ -1,3 +1,9 @@
-<select id="sel-lang" required>
-    <option *ngFor="let language of Language"> {{language }} </option>
-</select>
+<div class="control">
+    <span class="select">
+        <select class="is-size-6" id="sel-lang" required>
+            <option selected disabled hidden value=""> Language </option>
+            <option *ngFor="let language of Language"> {{language }} </option>
+        </select>
+    </span>
+</div>
+

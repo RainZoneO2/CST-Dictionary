@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 
 @Component({
   selector: 'app-dictionary',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dictionary.component.css']
 })
 export class DictionaryComponent implements OnInit {
+  @Input() enteredText!: string;
+  @Input() fromLang!: string;
+  @Input() toLang!: string;
 
-  constructor() { }
+
+  constructor(private restApi : DictionaryService) { }
 
   ngOnInit(): void {
+     this.restApi.getDictEntry().subscribe((data: any) => {
+      //this.smth = data
+    })
   }
 
 }
