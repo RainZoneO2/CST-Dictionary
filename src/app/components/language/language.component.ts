@@ -11,8 +11,8 @@ import { TranslationService } from 'src/app/services/translation.service'
 export class LanguageComponent implements OnInit {
   Language: any = [] //Parsed and sorted languages obtained from parseLanguages()
   LanguagePair: any = [] //Language pair obtained from loadLanguages()
-  @Output() optionEmitter = new EventEmitter<string>();
-  //GET SELECTER AND PUT INTO EMIT()
+  @Output() optionEmitter = new EventEmitter<string>(); //This is the output field that the home component can see
+  selectedLang!: any; //This is the selected language
 
   constructor(private restApi: TranslationService) {}
   ngOnInit(): void {
@@ -40,7 +40,9 @@ export class LanguageComponent implements OnInit {
     this.Language.sort((a: string, b: string) => a.localeCompare(b)) //We sort the Language array alphabetically here
   }
 
-  PostData() {
-    this.optionEmitter.emit()
+  selectChangeHandler(event: any) {
+    this.selectedLang = event.target.value //This sets the selectedLang to the value of the selection from our select component in the template
+    this.optionEmitter.emit(this.selectedLang) //This actually emits the data so it can be used in Home component 
+    //console.log(this.optionEmitter.toString())
   }
 }

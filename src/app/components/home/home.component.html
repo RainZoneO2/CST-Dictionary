@@ -1,36 +1,47 @@
+<!-- Main section of page, the hero class is apart of bulma and defined a banner that spans the width of the page -->
 <section class="hero is-primary is-bold">
     <div class="hero-head content">
         <span class="title is-centered">
             Dictionary-translation service
         </span>
-
     </div>
+    <!-- This is the body of the banner, it contains all the content of my page -->
     <div class="hero-body box">
+        <!-- This div has class panel and columns, which means it will get a kind of pop out effect and allow me to have columns -->
         <div class="panel columns is-mobile is-centered">
+            <!-- LANGUAGE COMPONENT: This column is for the language component, I have an optionEmitter to get the value of the selected and put it into fromLang -->
             <div class="column">
-                <app-language id="fromLang" (optionEmitter)="fromLang"></app-language>
+                <app-language id="fromLang" (optionEmitter)="fromLanguageHandler($event)"></app-language>
             </div>
+            <!-- This column is for the word entry, it has banana-in-the-box syntax for two way binding for the enteredText -->
             <div class="column">
                 <input class="input is-primary" 
                 placeholder="Enter a word" 
                 type="text" id="entry"
                 [(ngModel)]="enteredText">
-                <app-dictionary 
+                <!-- Here I create the dictionary component, even though there is no template html for the dictionary, it will
+                still get the enteredText, fromLang, and toLang, to use in the API call -->
+                <app-dictionary (responseEmitter)="responseHandler($event)"
                 [enteredText]="enteredText"
                 [fromLang]="fromLang"
                 [toLang]="toLang"></app-dictionary>
             </div>
+            <!--  LANGUAGE COMPONENT: Same as Language component above, however puts the selected into toLang -->
             <div class="column">
-                <app-language id="toLang" (optionEmitter)="toLang"></app-language>
+                <app-language id="toLang" (optionEmitter)="toLanguageHandler($event)"></app-language>
             </div>
         </div>
+        <!-- This column is for displaying the data obtained through the API -->
         <div class="column">
+            <!-- I used a bulma component called tile, which gives a nice area for the display of details -->
             <div class="tile is-ancestor">
                 <section class="tile is-vertical">
                     <article class="tile is-child notification is-primary">
                         <p class="title">Definition of</p>
+                        <!-- This is a nice UI effect just to show the user what word they will be searching for, it uses one way binding -->
                         <p class="box title has-text-black"> {{ enteredText }} </p>
-                        <p class="subtitle">Top tile</p>
+                        <!-- TODO: THIS IS WHERE THE DATA WILL BE SHOWN, NEED TO ACCESS PARTS OF JSON TO DISPLAY-->
+                         <p class="subtitle"> {{ response | json }}</p>
                       </article>
                 </section>
             </div>
@@ -38,13 +49,11 @@
     </div>
 </section>
 
+<!-- The footer of the page, has some basic information -->
 <footer class="footer">
     <div class="content has-text-centered">
         <span>
             Made by <strong>Alghaith Ahmad</strong> - S8912J
         </span>
     </div>
-    
 </footer>
-
-

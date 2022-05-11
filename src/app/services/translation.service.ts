@@ -20,7 +20,6 @@ export class TranslationService {
   constructor(private http: HttpClient) {}
 
   getLanguagePairs(): Observable<language[]> {
-    //<language[]>
     return this.http.get(`${this.langApiUrl}`).pipe(
       //Sends observables returned by the http.get() to error handler
       map((resp) => <language[]>resp),

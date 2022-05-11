@@ -1,8 +1,12 @@
 <div class="control">
+    <!-- Defining the span as a select so it uses the bulma framework -->
     <span class="select">
-        <select class="is-size-6" id="sel-lang" required>
-            <option selected disabled hidden value=""> Language </option>
-            <option *ngFor="let language of Language"> {{language }} </option>
+        <!-- Creating the selector and making it required, and giving it an event handler for when the option is changed, this is used for the emitter -->
+        <select class="is-size-6" id="sel-lang" required (change)="selectChangeHandler($event)">
+            <!-- This is the default option, I've made it disabled and hidden so you can't select it, and you can't see it when you open the drop down -->
+            <option selected disabled hidden value="en"> Language </option>
+            <!-- The language option, it's populated by the databinding, and the *ngFor means that it will create that component for every language in Language-->
+            <option *ngFor="let language of Language" value="{{ language }}"> {{language }} </option>
         </select>
     </span>
 </div>
