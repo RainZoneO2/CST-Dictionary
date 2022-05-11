@@ -1,25 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { language } from 'src/app/models/language';
-import { TranslationService } from 'src/app/services/translation.service';
+import { Component, OnInit } from '@angular/core'
+import { Observable, Subscriber } from 'rxjs'
+import { language } from 'src/app/models/language'
+import { TranslationService } from 'src/app/services/translation.service'
 
 @Component({
   selector: 'app-language',
-  template:`<div> 
-              <select>
-                <option *ngFor='let language in languages'>{{language}}</option>
-              </select>
-            </div>`,
-  //templateUrl: './language.component.html',
-  styleUrls: ['./language.component.css']
+  templateUrl: './language.component.html',
+  styleUrls: ['./language.component.css'],
 })
 export class LanguageComponent implements OnInit {
-  constructor(private service: TranslationService) { }
+  Language: any = [] //Parsed and sorted languages obtained from parseLanguages()
+  LanguagePair: any = [] //Language pair obtained from loadLanguages()
 
+  constructor(private restApi: TranslationService) {}
   ngOnInit(): void {
-    this.service.getLanguagePairs()
-    .subscribe(languages => this.languages = languages);
+    this.loadLanguages() //We call loadLanguages() here.
   }
-  languages: Observable<language[]>;
 
+  loadLanguages() {
+    return this.restApi.getLanguagePairs().subscribe((data: any) => { //Subscribing to the observable for our api
+      this.LanguagePair = data //Setting the data to the LanguagePair array
+      this.parseLanguages()
+      /**
+       * The reason we called parseLanguages() here because getLanguagePairs() has an observable
+       * meaning it can be completed at a later time. So calling parseLanguages() here is an simple fix.
+       **/
+    })
+  }
+
+  parseLanguages() {
+    for (var pair of this.LanguagePair) { //This gets every pair in LanguagePair array
+      var temp = pair.split('-') //We split every pair and assign it to temp
+      if (!this.Language.includes(temp[1]))
+        //Check if the Language array doesn't already contain language
+        this.Language.push(temp[1]) //Push it inside of Language array
+    }
+    this.Language.sort((a: string, b: string) => a.localeCompare(b)) //We sort the Language array alphabetically here
+  }
 }

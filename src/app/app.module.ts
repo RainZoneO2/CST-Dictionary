@@ -7,12 +7,14 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslationService } from './services/translation.service';
 import { LanguageComponent } from './components/language/language.component';
+import { DictionaryComponent } from './components/dictionary/dictionary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LanguageComponent
+    LanguageComponent,
+    DictionaryComponent
   ],
   imports: [
     BrowserModule,

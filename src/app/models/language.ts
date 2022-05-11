@@ -1,3 +1,3 @@
 export interface language {
-    lang: string;
+    name: string;
 }
